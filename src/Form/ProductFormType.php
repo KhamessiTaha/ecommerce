@@ -26,7 +26,7 @@ class ProductFormType extends AbstractType
             ])
             ->add('price', MoneyType::class, [
                 'label' => 'Price',
-                'currency' => 'EUR',
+                'currency' => 'TND',
                 'constraints' => [
                     new Assert\NotBlank(['message' => 'Price cannot be empty']),
                     new Assert\Positive(['message' => 'Price must be greater than 0']),
