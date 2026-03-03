@@ -35,10 +35,15 @@
                         </p>
                         <h6 class="card-subtitle mb-2 text-success">{{ product.price }}€</h6>
                     </div>
-                    <div class="card-footer bg-white border-top">
-                        <a href="{{ path('product_show', {'id': product.id}) }}" class="btn btn-primary btn-sm w-100">
-                            👁️ View Details
+                    <div class="card-footer bg-white border-top d-flex gap-2">
+                        <a href="{{ path('product_show', {'id': product.id}) }}" class="btn btn-primary btn-sm flex-grow-1">
+                            👁️ View
                         </a>
+                        <form method="POST" action="{{ path('cart_add', {'id': product.id}) }}" style="flex-grow: 1;">
+                            <button type="submit" class="btn btn-success btn-sm w-100">
+                                🛒 Add
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
