@@ -1,12 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détail du Produit{% endblock %}
+{% block title %}{{ product.name }} - Ecommerce{% endblock %}
 
 {% block body %}
-<h1>Détail du Produit</h1>
-<p><strong>ID :</strong> {{ product.id }}</p>
-<p><strong>Nom :</strong> {{ product.name }}</p>
-<p><strong>Prix :</strong> {{ product.price }}€</p>
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <a href="{{ path('product_list') }}" class="btn btn-light">
+                ← Back to Products
+            </a>
+        </div>
+    </div>
 
-<a href="{{ path('product_list') }}">Retour</a>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card bg-light d-flex align-items-center justify-content-center" style="height: 400px;">
+                <span style="font-size: 6rem;">📦</span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h1 class="mb-3">{{ product.name }}</h1>
+
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Product Details</h5>
+                    
+                    <div class="mb-3">
+                        <h6 class="text-muted">Product ID</h6>
+                        <p>{{ product.id }}</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <h6 class="text-muted">Category</h6>
+                        <p class="badge bg-info text-dark">{{ product.category }}</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <h6 class="text-muted">Description</h6>
+                        <p>{{ product.description }}</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <h6 class="text-muted">Price</h6>
+                        <h3 class="text-success">{{ product.price }}€</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="button" class="btn btn-success btn-lg" disabled>
+                    🛒 Add to Cart (Coming Soon)
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
