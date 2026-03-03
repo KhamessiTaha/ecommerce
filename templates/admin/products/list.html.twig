@@ -39,7 +39,13 @@
                         <td>{{ product.name }}</td>
                         <td>{{ product.category }}</td>
                         <td>{{ product.price }}€</td>
-                        <td>{{ product.description|truncate(50) }}</td>
+                        <td>
+                            {% if product.description|length > 50 %}
+                                {{ product.description|slice(0, 50) ~ '...' }}
+                            {% else %}
+                                {{ product.description }}
+                            {% endif %}
+                        </td>
                         <td>
                             <a href="{{ path('admin_product_edit', {'id': product.id}) }}" class="btn btn-sm btn-primary">
                                 ✏️ Edit

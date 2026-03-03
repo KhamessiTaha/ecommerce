@@ -27,7 +27,11 @@
                         <h5 class="card-title">{{ product.name }}</h5>
                         <p class="card-text text-muted">{{ product.category }}</p>
                         <p class="card-text">
-                            {{ product.description|truncate(100) }}
+                            {% if product.description|length > 100 %}
+                                {{ product.description|slice(0, 100) ~ '...' }}
+                            {% else %}
+                                {{ product.description }}
+                            {% endif %}
                         </p>
                         <h6 class="card-subtitle mb-2 text-success">{{ product.price }}€</h6>
                     </div>
