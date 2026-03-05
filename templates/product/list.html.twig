@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Products - Ecommerce{% endblock %}
+{% block title %}Products - Saroukh TN{% endblock %}
 
 {% block body %}
 <div class="container">
@@ -10,10 +10,86 @@
         </div>
     </div>
 
+    <!-- Search & Filter Section -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <form method="GET" action="{{ path('product_list') }}" class="row g-3">
+                        <!-- Search Input -->
+                        <div class="col-md-4">
+                            <label for="keyword" class="form-label">🔍 Search Products</label>
+                            <input type="text" id="keyword" name="keyword" class="form-control" placeholder="Search by name or description..." value="{{ current_keyword ?? '' }}">
+                        </div>
+
+                        <!-- Category Filter -->
+                        <div class="col-md-3">
+                            <label for="category" class="form-label">📂 Category</label>
+                            <select id="category" name="category" class="form-select">
+                                <option value="">All Categories</option>
+                                {% for cat in categories %}
+                                    <option value="{{ cat }}" {% if current_category == cat %}selected{% endif %}>{{ cat }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Price Range -->
+                        <div class="col-md-2">
+                            <label for="min_price" class="form-label">Min Price (TND)</label>
+                            <input type="number" id="min_price" name="min_price" class="form-control" placeholder="0" step="0.01" value="{{ current_min_price ?? '' }}">
+                        </div>
+
+                        <div class="col-md-2">
+                            <label for="max_price" class="form-label">Max Price (TND)</label>
+                            <input type="number" id="max_price" name="max_price" class="form-control" placeholder="9999" step="0.01" value="{{ current_max_price ?? '' }}">
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="col-md-1 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary w-100">
+                                🔎 Search
+                            </button>
+                        </div>
+
+                        <div class="col-md-1 d-flex align-items-end">
+                            <a href="{{ path('product_list') }}" class="btn btn-secondary w-100">
+                                ↻ Reset
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Count -->
+    {% if current_keyword or current_category or current_min_price or current_max_price %}
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <p class="text-muted">
+                    Found <strong>{{ products|length }}</strong> product(s)
+                    {% if current_keyword %}<br>matching "<strong>{{ current_keyword }}</strong>"{% endif %}
+                    {% if current_category %}<br>in category "<strong>{{ current_category }}</strong>"{% endif %}
+                    {% if current_min_price %}in price range <strong>{{ current_min_price }} - {% if current_max_price %}{{ current_max_price }}{% else %}∞{% endif %} TND</strong>{% endif %}
+                </p>
+            </div>
+        </div>
+    {% endif %}
+
     {% if products is empty %}
         <div class="alert alert-info text-center" role="alert">
-            <h4 class="alert-heading">No Products Available</h4>
-            <p>We don't have any products to display at the moment.</p>
+            <h4 class="alert-heading">No Products Found</h4>
+            <p>
+                {% if current_keyword or current_category or current_min_price or current_max_price %}
+                    No products match your search criteria. Try adjusting your filters.
+                {% else %}
+                    We don't have any products to display at the moment.
+                {% endif %}
+            </p>
+            {% if current_keyword or current_category or current_min_price or current_max_price %}
+                <hr>
+                <a href="{{ path('product_list') }}" class="btn btn-primary">View All Products</a>
+            {% endif %}
         </div>
     {% else %}
         <div class="row">
