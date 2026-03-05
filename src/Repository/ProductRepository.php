@@ -125,15 +125,18 @@ class ProductRepository extends ServiceEntityRepository
      */
     public function getRecommendations(Product $product, int $limit = 4): array
     {
-        return $this->createQueryBuilder('p')
+        $products = $this->createQueryBuilder('p')
             ->where('p.category = :category')
             ->andWhere('p.id != :productId')
             ->setParameter('category', $product->getCategory())
             ->setParameter('productId', $product->getId())
-            ->orderBy('RAND()')
-            ->setMaxResults($limit)
+            ->orderBy('p.id', 'ASC')
             ->getQuery()
             ->getResult();
+
+        // Shuffle and limit
+        shuffle($products);
+        return array_slice($products, 0, $limit);
     }
 
     //    /**
