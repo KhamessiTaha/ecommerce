@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login - Saroukh TN{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">🔐 Login to Saroukh TN</h2>
+
+                    {% if error %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Login Failed!</strong>
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endif %}
+
+                    <form method="post" action="{{ path('app_login') }}" novalidate>
+                        <div class="mb-3">
+                            <label for="inputEmail" class="form-label">📧 Email</label>
+                            <input 
+                                type="email" 
+                                value="{{ last_username }}"
+                                name="email" 
+                                id="inputEmail" 
+                                class="form-control"
+                                required
+                                autofocus
+                                placeholder="your@email.com"
+                            />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="inputPassword" class="form-label">🔒 Password</label>
+                            <input 
+                                type="password" 
+                                name="password" 
+                                id="inputPassword" 
+                                class="form-control"
+                                required
+                                placeholder="Enter your password"
+                            />
+                        </div>
+
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                        <button class="w-100 btn btn-lg btn-primary mb-3" type="submit">
+                            ✅ Login
+                        </button>
+                    </form>
+
+                    <hr>
+
+                    <p class="text-center">
+                        Don't have an account? 
+                        <a href="{{ path('app_register') }}" class="link-primary">Register here</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Demo Info -->
+            <div class="alert alert-info mt-4">
+                <h6>🧪 Demo Credentials:</h6>
+                <p class="mb-1"><strong>Admin:</strong> admin@saroukh.tn / password123</p>
+                <p class="mb-0"><strong>User:</strong> user@saroukh.tn / password123</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

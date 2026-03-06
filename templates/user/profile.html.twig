@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Profile - Saroukh TN{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">👤 My Profile</h2>
+
+                    <div class="profile-info">
+                        <div class="row mb-4">
+                            <div class="col-sm-3">
+                                <strong>Full Name:</strong>
+                            </div>
+                            <div class="col-sm-9">
+                                {{ user.fullName }}
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-sm-3">
+                                <strong>Email:</strong>
+                            </div>
+                            <div class="col-sm-9">
+                                {{ user.email }}
+                                {% if user.isAdmin() %}
+                                    <span class="badge bg-danger ms-2">Admin</span>
+                                {% else %}
+                                    <span class="badge bg-success ms-2">Customer</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-sm-3">
+                                <strong>Member Since:</strong>
+                            </div>
+                            <div class="col-sm-9">
+                                {{ user.createdAt|date('M d, Y') }}
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-sm-3">
+                                <strong>Role:</strong>
+                            </div>
+                            <div class="col-sm-9">
+                                {% for role in user.roles %}
+                                    <span class="badge bg-info">{{ role }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="actions">
+                        <a href="{{ path('product_list') }}" class="btn btn-primary">
+                            ← Continue Shopping
+                        </a>
+                        <a href="{{ path('app_logout') }}" class="btn btn-danger">
+                            🚪 Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

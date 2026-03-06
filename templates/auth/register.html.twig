@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register - Saroukh TN{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">👤 Create Your Account</h2>
+
+                    <form method="post" action="{{ path('app_register') }}" novalidate>
+                        <div class="mb-3">
+                            <label for="registerFullName" class="form-label">👤 Full Name</label>
+                            {{ form_widget(form.fullName, {
+                                'attr': {
+                                    'id': 'registerFullName',
+                                    'class': 'form-control',
+                                    'placeholder': 'Your Full Name'
+                                }
+                            }) }}
+                            {{ form_errors(form.fullName) }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="registerEmail" class="form-label">📧 Email</label>
+                            {{ form_widget(form.email, {
+                                'attr': {
+                                    'id': 'registerEmail',
+                                    'class': 'form-control',
+                                    'placeholder': 'your@email.com',
+                                    'autofocus': true
+                                }
+                            }) }}
+                            {{ form_errors(form.email) }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="registerPassword" class="form-label">🔒 Password</label>
+                            {{ form_widget(form.password, {
+                                'attr': {
+                                    'id': 'registerPassword',
+                                    'class': 'form-control',
+                                    'placeholder': 'At least 6 characters'
+                                }
+                            }) }}
+                            {{ form_errors(form.password) }}
+                        </div>
+
+                        {{ form_rest(form) }}
+
+                        <button class="w-100 btn btn-lg btn-success mb-3" type="submit">
+                            ✅ Create Account
+                        </button>
+                    </form>
+
+                    <hr>
+
+                    <p class="text-center">
+                        Already have an account? 
+                        <a href="{{ path('app_login') }}" class="link-primary">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-control.is-invalid {
+        border-color: #dc3545;
+    }
+    .invalid-feedback {
+        color: #dc3545;
+        font-size: 0.875rem;
+        display: block;
+    }
+</style>
+{% endblock %}

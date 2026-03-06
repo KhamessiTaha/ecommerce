@@ -8,8 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/cart')]
+#[IsGranted('ROLE_USER')]
 class CartController extends AbstractController
 {
     #[Route('', name: 'cart_index', methods: ['GET'])]
